@@ -34,7 +34,8 @@ RUN curl -L -O https://gmplib.org/download/gmp/gmp-6.1.2.tar.lz && \
     curl -L -O https://www.sqlite.org/2019/sqlite-autoconf-3290000.tar.gz && \
     curl -L -O http://zlib.net/zlib-1.2.11.tar.gz && \
     curl -L -O https://c-ares.haxx.se/download/c-ares-1.15.0.tar.gz && \
-    curl -L -O https://www.libssh2.org/download/libssh2-1.9.0.tar.gz
+    curl -L -O https://www.libssh2.org/download/libssh2-1.9.0.tar.gz && \
+    curl -L -O https://www.openssl.org/source/openssl-1.1.1e.tar.gz
 
 RUN tar xf gmp-6.1.2.tar.lz && \
     cd gmp-6.1.2 && \
@@ -94,6 +95,15 @@ RUN tar xf c-ares-1.15.0.tar.gz && \
         LIBS="-lws2_32" && \
     make install
 
+RUN tar xf openssl-1.1.1e.tar.gz && \
+    cd openssl-1.1.1e && \
+    ./Configure mingw64 \
+        --cross-compile-prefix=$HOST- \
+        --prefix=$PREFIX \
+        shared && \
+    make && \
+    make install
+
 RUN tar xf libssh2-1.9.0.tar.gz && \
     cd libssh2-1.9.0 && \
     ./configure \
@@ -102,7 +112,6 @@ RUN tar xf libssh2-1.9.0.tar.gz && \
         --prefix=/usr/local/$HOST \
         --host=$HOST \
         --build=`dpkg-architecture -qDEB_BUILD_GNU_TYPE` \
-        --without-openssl \
         --with-wincng \
         LIBS="-lws2_32" && \
     make install
