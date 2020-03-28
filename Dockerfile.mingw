@@ -27,7 +27,10 @@ RUN apt-get update && \
     apt-get install -y \
         make binutils autoconf automake autotools-dev libtool \
         pkg-config git curl dpkg-dev gcc-mingw-w64 g++-mingw-w64 \
-        autopoint libcppunit-dev libxml2-dev libgcrypt11-dev lzip
+        autopoint libcppunit-dev libxml2-dev libgcrypt11-dev lzip \        
+        libgnutls28-dev nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev \
+        zlib1g-dev libsqlite3-dev gcc g++ libxml2-dev quilt libcurl4-openssl-dev \
+        libevent-dev ca-certificates build-essential intltool libgcrypt-dev libssl-dev python-pip
 
 RUN curl -L -O https://gmplib.org/download/gmp/gmp-6.1.2.tar.lz && \
     curl -L -O https://github.com/libexpat/libexpat/releases/download/R_2_2_7/expat-2.2.7.tar.bz2 && \
@@ -35,7 +38,7 @@ RUN curl -L -O https://gmplib.org/download/gmp/gmp-6.1.2.tar.lz && \
     curl -L -O http://zlib.net/zlib-1.2.11.tar.gz && \
     curl -L -O https://c-ares.haxx.se/download/c-ares-1.15.0.tar.gz && \
     curl -L -O https://www.libssh2.org/download/libssh2-1.9.0.tar.gz && \
-    curl -L -O https://www.openssl.org/source/openssl-1.1.1e.tar.gz
+    curl -L -O https://www.openssl.org/source/old/1.1.1/openssl-1.1.1.tar.gz
 
 RUN tar xf gmp-6.1.2.tar.lz && \
     cd gmp-6.1.2 && \
@@ -95,12 +98,10 @@ RUN tar xf c-ares-1.15.0.tar.gz && \
         LIBS="-lws2_32" && \
     make install
 
-RUN tar xf openssl-1.1.1e.tar.gz && \
-    cd openssl-1.1.1e && \
+RUN tar xf openssl-1.1.1.tar.gz && \
+    cd openssl-1.1.1 && \
     ./Configure mingw64 \
-        --cross-compile-prefix=$HOST- \
-        --prefix=/usr/local/$HOST \
-        shared && \
+        --cross-compile-prefix=$HOST- --prefix=/usr/local/$HOST shared && \
     make && \
     make install
 
