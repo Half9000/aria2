@@ -99,7 +99,7 @@ RUN tar xf openssl-1.1.1e.tar.gz && \
     cd openssl-1.1.1e && \
     ./Configure mingw64 \
         --cross-compile-prefix=$HOST- \
-        --prefix=$PREFIX \
+        --prefix=/usr/local/$HOST \
         shared && \
     make && \
     make install
