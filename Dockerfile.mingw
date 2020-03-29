@@ -98,12 +98,12 @@ RUN tar xf c-ares-1.15.0.tar.gz && \
         LIBS="-lws2_32" && \
     make install
 
-RUN tar xf openssl-1.1.1.tar.gz && \
-    cd openssl-1.1.1 && \
-    ./Configure mingw64 \
-        --cross-compile-prefix=$HOST- --prefix=/usr/local/$HOST shared && \
-    make && \
-    make install
+# RUN tar xf openssl-1.1.1.tar.gz && \
+#     cd openssl-1.1.1 && \
+#     ./Configure mingw64 \
+#         --cross-compile-prefix=$HOST- --prefix=/usr/local/$HOST shared && \
+#     make && \
+#     make install
 
 RUN tar xf libssh2-1.9.0.tar.gz && \
     cd libssh2-1.9.0 && \
