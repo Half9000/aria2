@@ -65,9 +65,9 @@ test -z "$PREFIX" && PREFIX=/usr/local/$HOST
     --without-included-gettext \
     --disable-nls \
     --with-libcares \
-    --without-wintls\
+    --with-wintls\
     --without-gnutls \
-    --with-openssl \
+    --without-openssl \
     --with-sqlite3 \
     --without-libxml2 \
     --with-libexpat \
@@ -76,7 +76,6 @@ test -z "$PREFIX" && PREFIX=/usr/local/$HOST
     --with-libssh2 \
     --without-libgcrypt \
     --without-libnettle \
-    --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt' \
     --with-cppunit-prefix=$PREFIX \
     ARIA2_STATIC=yes \
     CPPFLAGS="-I$PREFIX/include" \
